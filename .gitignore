@@ -1,6 +1,7 @@
 # dependencies
 /node_modules
 
+/dist/bundle.js
 
 # misc
 npm-debug.log
