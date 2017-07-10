@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Voting from './components/Voting';
 import {Router, Route, hashHistory} from 'react-router';
 import App from './components/App';
-import Results from './components/Results';
 import {createStore} from 'redux';
 import reducer from './reducer'
+import {Provider} from 'react-redux';
+import {VotingContainer} from './components/Voting';
+import {ResultsContainer} from './components/Voting';
 
 
 const store = createStore(reducer);
@@ -20,14 +21,16 @@ store.dispatch({
 });
 
 const routes = <Route component={App}>
-    <Route path="/results" component={Results} />
-    <Route path="/" component={Voting} />  
+    <Route path="/results" component={ResultsContainer} />
+    <Route path="/" component={VotingContainer} />  
 </Route>;
 
 ReactDOM.render(
     //<Voting pair={pair}  />,
     //<Voting pair={pair} hasVoted="book" />,
     //<Voting pair={pair} winner="apple" />,
-    <Router history={hashHistory}>{routes}</Router>,
+    <Provider store={store}>
+        <Router history={hashHistory}>{routes}</Router>
+    </Provider>,
     document.getElementById('app')
 );
